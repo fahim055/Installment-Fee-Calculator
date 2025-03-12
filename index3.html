@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installment Calculator</title>
+    <style>
+        /* Default styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("dark-wallpaper-36.jpg"); /* Default background */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            transition: background-position 1s ease-in-out;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7); /* For better readability */
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #fff;
+            color: #000;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Zoom effect */
+        .zoom {
+            transform: scale(1.1);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Installment Fee Calculator</h1>
+        <input type="number" id="total-fee" placeholder="Enter Total Fee">
+        <button onclick="calculateInstallments()">Calculate Installments</button>
+        <p id="installment-result">Installment 1 (40%): 0</p>
+        <p id="installment-result2">Installment 2 (30%): 0</p>
+        <p id="installment-result3">Installment 3 (30%): 0</p>
+    </div>
+
+    <script>
+        function calculateInstallments() {
+            const totalFee = parseFloat(document.getElementById('total-fee').value);
+
+            if (isNaN(totalFee) || totalFee <= 0) {
+                alert('Please enter a valid total fee');
+                return;
+            }
+
+            const firstInstallment = totalFee * 0.40;
+            const secondInstallment = totalFee * 0.30;
+            const thirdInstallment = totalFee * 0.30;
+
+            document.getElementById('installment-result').textContent = `Installment 1 (40%): ${firstInstallment.toFixed(2)}`;
+            document.getElementById('installment-result2').textContent = `Installment 2 (30%): ${secondInstallment.toFixed(2)}`;
+            document.getElementById('installment-result3').textContent = `Installment 3 (30%): ${thirdInstallment.toFixed(2)}`;
+
+            // Move background image up
+            document.body.style.backgroundPosition = "center top";
+
+            // Add zoom effect to result section
+            document.querySelector(".container").classList.add("zoom");
+
+            // Reset background & zoom after 2 seconds
+            setTimeout(() => {
+                document.body.style.backgroundPosition = "center center"; // Reset to normal position
+                document.querySelector(".container").classList.remove("zoom"); // Remove zoom effect
+            }, 2000);
+        }
+
+        // Trigger calculation when user presses "Enter"
+        document.getElementById('total-fee').addEventListener('keypress', function(event) {
+            if (event.key === "Enter") {
+                calculateInstallments();
+            }
+        });
+    </script>
+
+</body>
+</html>
